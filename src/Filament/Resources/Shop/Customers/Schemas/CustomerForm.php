@@ -2,7 +2,7 @@
 
 namespace Adultdate\FilamentShop\Filament\Resources\Shop\Customers\Schemas;
 
-use App\Models\Shop\Customer;
+use Adultdate\FilamentShop\Models\Shop\Customer;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
@@ -18,21 +18,22 @@ class CustomerForm
                 Section::make()
                     ->schema([
                         TextInput::make('name')
+                            ->label('Namn')
                             ->maxLength(255)
                             ->required(),
-
+                        TextInput::make('address')
+                            ->label('Adress')
+                            ->maxLength(255)
+                            ->required(),
+                        TextInput::make('phone')
+                            ->label('Telefonnummer')
+                            ->maxLength(255)
+                            ->required(),
                         TextInput::make('email')
-                            ->label('Email address')
-                            ->required()
+                            ->label('Epost adress')
                             ->email()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
-
-                        TextInput::make('phone')
-                            ->maxLength(255),
-
-                        DatePicker::make('birthday')
-                            ->maxDate('today'),
                     ])
                     ->columns(2)
                     ->columnSpan(['lg' => fn (?Customer $record) => $record === null ? 3 : 2]),

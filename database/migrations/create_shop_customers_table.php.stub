@@ -15,11 +15,21 @@ return new class extends Migration
     {
         Schema::create('shop_customers', function (Blueprint $table): void {
             $table->id();
-            $table->string('name');
+            $table->ulid('ulid')->unique();
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('phone')->unique();
             $table->string('email')->unique();
-            $table->string('photo')->nullable();
-            $table->string('phone')->nullable();
+            $table->json('phones')->nullable();
+            $table->string('dob')->nullable();
             $table->date('birthday')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('map')->nullable();
+            $table->text('notes')->nullable();
+            $table->string('type')->nullable()->default('person');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,7 +2,7 @@
 
 namespace Adultdate\FilamentShop\Filament\Imports\Shop;
 
-use App\Models\Shop\Category;
+use Adultdate\FilamentShop\Models\Shop\Category;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;

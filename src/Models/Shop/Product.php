@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Shop;
+namespace Adultdate\FilamentShop\Models\Shop;
 
-use App\Models\Comment;
+use Adultdate\FilamentShop\Models\Comment;
 use Database\Factories\Shop\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,7 +64,8 @@ class Product extends Model implements HasMedia
                 $this
                     ->addMediaConversion('thumb')
                     ->width(40)
-                    ->height(40);
+                    ->height(40)
+                    ->performOnCollections('product-images');
             });
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Shop;
+namespace Adultdate\FilamentShop\Models\Shop;
 
 use Database\Factories\Shop\CategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

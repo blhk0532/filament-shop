@@ -2,7 +2,7 @@
 
 namespace Adultdate\FilamentShop\Filament\Exports\Blog;
 
-use App\Models\Blog\Author;
+use Adultdate\FilamentShop\Models\Blog\Author;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;

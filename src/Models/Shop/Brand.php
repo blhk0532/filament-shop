@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Shop;
+namespace Adultdate\FilamentShop\Models\Shop;
 
-use App\Models\Address;
+use Adultdate\FilamentShop\Models\Address;
 use Database\Factories\Shop\BrandFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

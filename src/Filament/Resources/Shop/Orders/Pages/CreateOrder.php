@@ -4,14 +4,15 @@ namespace Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Pages;
 
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\OrderResource;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Schemas\OrderForm;
-use App\Models\Shop\Order;
-use App\Models\User;
+use Adultdate\FilamentShop\Models\Shop\Order;
+use Adultdate\FilamentShop\Models\User;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\HasWizard;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Wizard\Step;
+use Illuminate\Support\Facades\Auth;
 
 class CreateOrder extends CreateRecord
 {
@@ -46,7 +47,7 @@ class CreateOrder extends CreateRecord
         $order = $this->record;
 
         /** @var User $user */
-        $user = auth()->user();
+        $user = Auth::user();
 
         Notification::make()
             ->title('New order')
@@ -56,6 +57,6 @@ class CreateOrder extends CreateRecord
                 Action::make('View')
                     ->url(OrderResource::getUrl('edit', ['record' => $order])),
             ])
-            ->sendToDatabase($user);
+            ->sendToDatabase([$user]);
     }
 }

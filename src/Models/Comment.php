@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Adultdate\FilamentShop\Models;
 
-use App\Models\Shop\Customer;
+use Adultdate\FilamentShop\Models\Shop\Customer;
 use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

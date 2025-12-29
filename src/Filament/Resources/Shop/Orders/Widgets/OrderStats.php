@@ -3,7 +3,7 @@
 namespace Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Widgets;
 
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Pages\ListOrders;
-use App\Models\Shop\Order;
+use Adultdate\FilamentShop\Models\Shop\Order;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;

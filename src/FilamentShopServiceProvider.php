@@ -9,10 +9,12 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Adultdate\FilamentShop\Commands\FilamentShopCommand;
 use Adultdate\FilamentShop\Testing\TestsFilamentShop;
 
@@ -36,6 +38,15 @@ class FilamentShopServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
+                    ->startWith(function (InstallCommand $installCommand) {
+                        $installCommand->info('Creating storage directories...');
+                        $this->createStorageDirectories();
+                    })
+                    ->endWith(function (InstallCommand $installCommand) {
+                        $installCommand->info('Running storage:link command...');
+                        $this->runStorageLink();
+                        $installCommand->info('Filament Shop installed successfully!');
+                    })
                     ->askToStarRepoOnGitHub('adultdate/filament-shop');
             });
 
@@ -76,14 +87,13 @@ class FilamentShopServiceProvider extends PackageServiceProvider
         // Icon Registration
         FilamentIcon::register($this->getIcons());
 
-        // Handle Stubs
-        if (app()->runningInConsole()) {
-            foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
-                $this->publishes([
-                    $file->getRealPath() => base_path("stubs/filament-shop/{$file->getFilename()}"),
-                ], 'filament-shop-stubs');
-            }
-        }
+        // Register Media Library Routes
+        $this->registerMediaRoutes();
+
+        // Migration Publishing
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'adultdate-filament-shop-migrations');
 
         // Testing
         Testable::mixin(new TestsFilamentShop);
@@ -99,11 +109,19 @@ class FilamentShopServiceProvider extends PackageServiceProvider
      */
     protected function getAssets(): array
     {
-        return [
+
+        $distPath = __DIR__ . '../../dist';
+
+        if (is_dir($distPath)) {
+            return [
             // AlpineComponent::make('filament-shop', __DIR__ . '/../resources/dist/components/filament-shop.js'),
-            Css::make('filament-shop-styles', __DIR__ . '/../resources/dist/filament-shop.css'),
-            Js::make('filament-shop-scripts', __DIR__ . '/../resources/dist/filament-shop.js'),
-        ];
+                Css::make('filament-shop-styles',  $distPath . '/resources/dist/filament-shop.css'),
+                Js::make('filament-shop-scripts', $distPath . '/resources/dist/filament-shop.js'),
+            ];
+        }
+
+        return [];
+
     }
 
     /**
@@ -146,7 +164,105 @@ class FilamentShopServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_skeleton_table',
+            'create_addressable_table', 
+            'create_addresses_table', 
+            'create_comments_table', 
+            'create_exports_table', 
+            'create_failed_import_rows_table', 
+            'create_imports_table', 
+            'create_media_table', 
+            'create_notifications_table', 
+            'create_payments_table', 
+            'create_settings_table', 
+            'create_shop_brands_table', 
+            'create_shop_categories_table', 
+            'create_shop_category_product_table', 
+            'create_shop_customers_table', 
+            'create_shop_order_items_table', 
+            'create_shop_orders_table', 
+            'create_shop_products_table', 
+            'create_tag_tables',
         ];
+    }
+
+    protected function createStorageDirectories(): void
+    {
+        $directories = [
+            storage_path('app/product-images'),
+            storage_path('app/public'),
+            storage_path('app/private'),
+        ];
+
+        $filesystem = app(Filesystem::class);
+
+        foreach ($directories as $directory) {
+            if (!$filesystem->exists($directory)) {
+                $filesystem->makeDirectory($directory, 0755, true);
+            }
+        }
+    }
+
+    protected function runStorageLink(): void
+    {
+        $exitCode = Artisan::call('storage:link');
+
+        if ($exitCode === 0) {
+            // Storage link was successful
+            return;
+        }
+
+        // If storage link failed, try to create the links manually
+        $this->createStorageLinks();
+    }
+
+    protected function createStorageLinks(): void
+    {
+        $filesystem = app(Filesystem::class);
+        $publicStorage = public_path('storage');
+        $appStorage = storage_path('app/public');
+
+        // Remove existing link if it exists
+        if ($filesystem->exists($publicStorage)) {
+            $filesystem->delete($publicStorage);
+        }
+
+        // Create the storage link
+        $filesystem->link($appStorage, $publicStorage);
+
+        // Create product-images link
+        $productImagesLink = public_path('storage/product-images');
+        $productImagesTarget = storage_path('app/product-images');
+
+        if (!$filesystem->exists($productImagesLink)) {
+            $filesystem->link($productImagesTarget, $productImagesLink);
+        }
+    }
+
+    protected function registerMediaRoutes(): void
+    {
+        // Register media library routes for serving media files and conversions
+        app('router')->get('/storage/product-images/{mediaId}/conversions/{conversionName}', function ($mediaId, $conversionName) {
+            $media = \Spatie\MediaLibrary\MediaCollections\Models\Media::findOrFail($mediaId);
+
+            if ($media->hasGeneratedConversion($conversionName)) {
+                return response()->file($media->getPath($conversionName), [
+                    'Access-Control-Allow-Origin' => '*',
+                    'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+                    'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                ]);
+            }
+
+            abort(404);
+        })->name('media.conversion');
+
+        app('router')->get('/storage/product-images/{mediaId}/{filename}', function ($mediaId, $filename) {
+            $media = \Spatie\MediaLibrary\MediaCollections\Models\Media::findOrFail($mediaId);
+
+            return response()->file($media->getPath(), [
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            ]);
+        })->name('media.file');
     }
 }

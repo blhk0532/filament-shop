@@ -2,11 +2,11 @@
 
 namespace Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Schemas;
 
-use App\Enums\OrderStatus;
+use Adultdate\FilamentShop\Enums\OrderStatus;
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Products\ProductResource;
-use App\Forms\Components\AddressForm;
-use App\Models\Shop\Order;
-use App\Models\Shop\Product;
+use Adultdate\FilamentShop\Forms\Components\AddressForm;
+use Adultdate\FilamentShop\Models\Shop\Order;
+use Adultdate\FilamentShop\Models\Shop\Product;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Repeater\TableColumn;
@@ -62,7 +62,21 @@ class OrderForm
                     ->columnSpan(['lg' => 1])
                     ->hidden(fn (?Order $record) => $record === null),
             ])
-            ->columns(3);
+            ->columns(3)
+            ->mutateDehydratedStateUsing(function (array $state): array {
+                // Calculate total price from order items
+                $totalPrice = 0;
+                if (isset($state['items']) && is_array($state['items'])) {
+                    foreach ($state['items'] as $item) {
+                        if (isset($item['qty']) && isset($item['unit_price'])) {
+                            $totalPrice += (int) $item['qty'] * (float) $item['unit_price'];
+                        }
+                    }
+                }
+                $state['total_price'] = $totalPrice;
+
+                return $state;
+            });
     }
 
     /**
@@ -112,9 +126,9 @@ class OrderForm
 
             Select::make('currency')
                 ->searchable()
+                ->placeholder('Swedish Krona')
                 ->getSearchResultsUsing(fn (string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id'))
-                ->getOptionLabelUsing(fn ($value): ?string => Currency::firstWhere('id', $value)?->getAttribute('name'))
-                ->required(),
+                ->getOptionLabelUsing(fn ($value): ?string => Currency::firstWhere('id', $value)?->getAttribute('name')),
 
             AddressForm::make('address')
                 ->columnSpan('full'),

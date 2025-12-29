@@ -2,7 +2,7 @@
 
 namespace Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Products\RelationManagers;
 
-use App\Models\User;
+use Adultdate\FilamentShop\Models\User;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -20,6 +20,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsRelationManager extends RelationManager
 {
@@ -86,13 +87,13 @@ class CommentsRelationManager extends RelationManager
                 CreateAction::make()
                     ->after(function ($record): void {
                         /** @var User $user */
-                        $user = auth()->user();
+                        $user = Auth::user();
 
                         Notification::make()
                             ->title('New comment')
                             ->icon('heroicon-o-chat-bubble-bottom-center-text')
                             ->body("**{$record->customer->name} commented on product ({$record->commentable->name}).**")
-                            ->sendToDatabase($user);
+                            ->sendToDatabase([$user]);
                     }),
             ])
             ->recordActions([

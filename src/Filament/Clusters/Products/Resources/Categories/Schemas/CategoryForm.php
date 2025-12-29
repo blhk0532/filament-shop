@@ -2,7 +2,7 @@
 
 namespace Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Categories\Schemas;
 
-use App\Models\Shop\Category;
+use Adultdate\FilamentShop\Models\Shop\Category;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;

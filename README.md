@@ -51,6 +51,38 @@ return [
 ];
 ```
 
+publish the package assets using:
+
+```bash
+php artisan filament:assets
+```
+
+Finally, make sure you have a **custom filament theme** (read [here](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme) how to create one) and add the following to your **theme.css** file:
+
+This ensures that the CSS is properly built:
+```css
+@source '../../../../vendor/adultdate/filament-schedule/resources/**/*';
+```
+
+This is optional but highly recommended as it will apply styles to better fit with the (default) filament theme:
+```css
+@import '../../../../vendor/adultdate/filament-schedule/resources/css/theme.css';
+```
+
+Add to Plugin to Filament panel:
+```php
+use Adultdate\FilamentShop\FilamentShopPlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            FilamentShopPlugin::make()
+        ])
+}      
+```
+
+
 ## Usage
 
 ```php

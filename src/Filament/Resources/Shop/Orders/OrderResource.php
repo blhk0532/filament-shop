@@ -9,7 +9,7 @@ use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\RelationManagers\Payme
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Schemas\OrderForm;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Tables\OrdersTable;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\Widgets\OrderStats;
-use App\Models\Shop\Order;
+use Adultdate\FilamentShop\Models\Shop\Order;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

@@ -9,7 +9,7 @@ use Adultdate\FilamentShop\Filament\Resources\Shop\Customers\RelationManagers\Ad
 use Adultdate\FilamentShop\Filament\Resources\Shop\Customers\RelationManagers\PaymentsRelationManager;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Customers\Schemas\CustomerForm;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Customers\Tables\CustomersTable;
-use App\Models\Shop\Customer;
+use Adultdate\FilamentShop\Models\Shop\Customer;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

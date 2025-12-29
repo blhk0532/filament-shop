@@ -2,7 +2,7 @@
 
 namespace Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Brands\Schemas;
 
-use App\Models\Shop\Brand;
+use Adultdate\FilamentShop\Models\Shop\Brand;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;

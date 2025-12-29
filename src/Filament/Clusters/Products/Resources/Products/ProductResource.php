@@ -10,7 +10,7 @@ use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Products\Relatio
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Products\Schemas\ProductForm;
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Products\Tables\ProductsTable;
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Products\Widgets\ProductStats;
-use App\Models\Shop\Product;
+use Adultdate\FilamentShop\Models\Shop\Product;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

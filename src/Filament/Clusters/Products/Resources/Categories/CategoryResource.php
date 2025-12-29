@@ -9,7 +9,7 @@ use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Categories\Pages
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Categories\RelationManagers\ProductsRelationManager;
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Categories\Schemas\CategoryForm;
 use Adultdate\FilamentShop\Filament\Clusters\Products\Resources\Categories\Tables\CategoriesTable;
-use App\Models\Shop\Category;
+use Adultdate\FilamentShop\Models\Shop\Category;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

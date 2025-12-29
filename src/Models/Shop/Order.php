@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Shop;
+namespace Adultdate\FilamentShop\Models\Shop;
 
-use App\Enums\OrderStatus;
+use Adultdate\FilamentShop\Enums\OrderStatus;
 use Database\Factories\Shop\OrderFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,5 +62,23 @@ class Order extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Calculate and return the total price from order items
+     */
+    public function calculateTotalPrice(): float
+    {
+        return $this->items->sum(function ($item) {
+            return $item->qty * $item->unit_price;
+        });
+    }
+
+    /**
+     * Update the total price based on current items
+     */
+    public function updateTotalPrice(): void
+    {
+        $this->update(['total_price' => $this->calculateTotalPrice()]);
     }
 }
