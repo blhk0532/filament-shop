@@ -1,21 +1,22 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "adultdate/filament-shop",
+    "description": "adultdate filament-shop",
     "keywords": [
-        ":vendor_name",
+        "adultdate",
         "laravel",
-        ":package_slug"
+        "filament",
+        "filament-shop"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/adultdate/filament-shop",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/adultdate/filament-shop/issues",
+        "source": "https://github.com/adultdate/filament-shop"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "adultdate",
+            "email": "adultdate@example.com",
             "role": "Developer"
         }
     ],
@@ -41,13 +42,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Adultdate\\FilamentShop\\": "src/",
+            "Adultdate\\FilamentShop\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Adultdate\\FilamentShop\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +68,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Adultdate\\FilamentShop\\FilamentShopServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentShop": "Adultdate\\FilamentShop\\Facades\\FilamentShop"
             }
         }
     },

@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Adultdate\FilamentShop\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentShopCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-shop';
 
     public $description = 'My command';
 
