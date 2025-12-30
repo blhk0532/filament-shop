@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\Order;
+use Adultdate\FilamentShop\Models\Shop\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -33,7 +33,7 @@ class OrderFactory extends Factory
     public function configure(): Factory
     {
         return $this->afterCreating(function (Order $order): void {
-            $order->address()->save(OrderAddressFactory::new()->make());
+            $order->address()->create(OrderAddressFactory::new()->definition());
         });
     }
 }

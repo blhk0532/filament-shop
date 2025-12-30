@@ -6,7 +6,7 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Navigation\NavigationGroup;
 use Adultdate\FilamentShop\Filament\Clusters\Products\ProductsCluster;
-use Adultdate\FilamentShop\Filament\App\Pages\Settings;
+use Adultdate\FilamentShop\Filament\Clusters\Services\ServicesCluster;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Customers\CustomerResource;
 use Adultdate\FilamentShop\Filament\Resources\Shop\Orders\OrderResource;
 use Adultdate\FilamentShop\Filament\Widgets\CustomersChart;
@@ -27,7 +27,7 @@ class FilamentShopPlugin implements Plugin
             ->discoverClusters(in: app_path('../vendor/adultdate/filament-shop/src/Filament/Clusters'), for: 'Adultdate\\FilamentShop\\Filament\\Clusters')
             ->databaseNotifications()
             ->pages([
-                Settings::class,
+
             ])
             ->resources([
                 CustomerResource::class,

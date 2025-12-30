@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\OrderItem;
+use Adultdate\FilamentShop\Models\Shop\OrderItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

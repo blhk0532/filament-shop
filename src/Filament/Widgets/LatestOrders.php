@@ -14,7 +14,7 @@ class LatestOrders extends BaseWidget
 {
     protected int | string | array $columnSpan = 'full';
 
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 12;
 
     public function table(Table $table): Table
     {

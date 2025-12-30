@@ -1,28 +1,28 @@
 <?php
 
-namespace Database\Factories\Blog;
+namespace Adultdate\FilamentShop\Database\Factories\Shop;
 
-use App\Models\Blog\Author;
+use Adultdate\FilamentShop\Models\Shop\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Author>
+ * @extends Factory<Client>
  */
-class AuthorFactory extends Factory
+class ClientFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Author::class;
+    protected $model = Client::class;
 
     public function definition(): array
     {
         return [
+            'ulid' => (string) \Illuminate\Support\Str::ulid(),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'bio' => $this->faker->realTextBetween(),
-            'github_handle' => $this->faker->userName(),
-            'twitter_handle' => $this->faker->userName(),
+            'phone' => $this->faker->phoneNumber(),
+            'birthday' => $this->faker->dateTimeBetween('-35 years', '-18 years'),
             'created_at' => $this->faker->dateTimeBetween('-1 year', '-6 month'),
             'updated_at' => $this->faker->dateTimeBetween('-5 month', 'now'),
         ];

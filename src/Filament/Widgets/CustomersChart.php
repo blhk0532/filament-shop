@@ -8,7 +8,7 @@ class CustomersChart extends ChartWidget
 {
     protected ?string $heading = 'Total customers';
 
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 12;
 
     protected function getType(): string
     {

@@ -8,7 +8,7 @@ class OrdersChart extends ChartWidget
 {
     protected ?string $heading = 'Orders per month';
 
-    protected static ?int $sort = 1;
+    protected static ?int $sort = 11;
 
     protected function getType(): string
     {

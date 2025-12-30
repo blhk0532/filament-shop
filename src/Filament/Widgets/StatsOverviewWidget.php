@@ -12,7 +12,7 @@ class StatsOverviewWidget extends BaseWidget
 {
     use InteractsWithPageFilters;
 
-    protected static ?int $sort = 0;
+    protected static ?int $sort = 10;
 
     protected function getStats(): array
     {

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Comment;
+use Adultdate\FilamentShop\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

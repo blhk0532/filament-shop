@@ -3,7 +3,7 @@
 namespace Database\Factories\Shop;
 
 use Akaunting\Money\Currency;
-use App\Models\Shop\Payment;
+use Adultdate\FilamentShop\Models\Shop\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
