@@ -3,7 +3,6 @@
 namespace Adultdate\FilamentShop\Filament\Clusters\Services\Resources\Bookings\Schemas;
 
 use Adultdate\FilamentShop\Enums\BookingStatus;
-use Adultdate\FilamentShop\Filament\Clusters\Services\Resources\Clients\ClientResource;
 use Adultdate\FilamentShop\Forms\Components\AddressForm;
 use Adultdate\FilamentShop\Models\Shop\Booking;
 use Adultdate\FilamentShop\Models\Shop\Service;
